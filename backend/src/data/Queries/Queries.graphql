@@ -1,0 +1,9 @@
+type Query {
+  allCards: [Card!]
+  topCardByRevenue: Card!
+  cardById(id: ID!): Card
+  cardsById(ids: [ID!]): [Card]
+  allSets: [Set!]
+  cardsBySet(id:[ID!]): [Card]
+  cardsByType(id:[ID!]): [Card]
+}

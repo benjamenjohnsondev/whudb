@@ -1,0 +1,10 @@
+type Mutation {
+  createCard(
+    title: String!
+    tagline: String revenue: Int
+  ): Card
+  addSetsToCard(
+    cardId: ID!
+    Set: SetsInput
+  ): Card
+}

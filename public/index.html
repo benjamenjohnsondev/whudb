@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <title>Min-Viable</title>
+  <link rel="icon" href="assets/icons/favicon.png" type="image/x-icon">
+  <style id="jss-server-side"></style>
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+  <!-- https://web.dev/fast/serve-modern-code-to-modern-browsers/codelab-serve-modern-code -->
+  <script type="module" src="app.mjs"></script>
+  <script nomodule src="app.bundle.js"></script>
+</body>
+
+<script>
+  // Check that service workers are registered
+  if ('serviceWorker' in navigator) {
+    // Use the window load event to keep the page load performant
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js');
+    });
+  }
+</script>
+
+</html>

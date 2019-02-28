@@ -1,0 +1,8 @@
+type CardType {
+  id: ID!
+  cards: [Card]
+  image(
+    width: Int height: Int url: String
+  ): Image
+  name: String!
+}

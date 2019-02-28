@@ -1,0 +1,10 @@
+type Card {
+  id: ID!
+  name: String!
+  image(
+    width: Int height: Int url: String
+  ): Image
+  cardTypes: [CardType]
+  sets: [Set]
+  effect: String
+}

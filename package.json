@@ -1,0 +1,49 @@
+{
+  "name": "whudb_v3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generatesw": "workbox generateSW sw.config",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --config webpack-conf/webpack.prod.js && npm run generatesw && node dist/backend/server.js",
+    "start-dev": "concurrently \"webpack --watch --config webpack-conf/webpack.dev.js\" \"node dist/backend/server.js\"",
+    "broken": "concurrently \"node dist/backend/server.js\" \"webpack-dev-server --watch --config webpack-conf/webpack.dev.js\" "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "babel-plugin-import-graphql": "^2.6.2",
+    "concurrently": "^4.1.0",
+    "es6-promise": "^4.2.5",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-jss": "^8.6.1",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/plugin-transform-react-inline-elements": "^7.2.0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^4.6.0",
+    "graphql-tools": "^4.0.4",
+    "react-router": "^4.3.1",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-graphql-loader": "^1.0.0",
+    "webpack-merge": "^4.2.1",
+    "workbox-cli": "^3.6.3"
+  }
+}

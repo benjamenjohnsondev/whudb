@@ -1,0 +1,8 @@
+type Set {
+  id: ID!
+  name: String!
+  cards: [Card]
+  image(
+    width: Int height: Int url: String
+  ): Image
+}
