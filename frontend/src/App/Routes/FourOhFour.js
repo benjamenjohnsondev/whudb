@@ -6,7 +6,7 @@ class FourOhFour extends Component {
   render() {
     return (
       <div>
-        <h1>404</h1>
+        <Typography variant="h1" >404</Typography>
       </div>
     );
   }
