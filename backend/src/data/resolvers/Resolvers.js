@@ -1,39 +1,40 @@
-import cards from '../CardData/Card/raw';
+import {Cards} from '../CardData/Card/raw';
 import cardTypes from '../CardData/CardType/raw';
 import sets from '../CardData/CardSet/raw';
 
 const resolvers = {
   Query: {
     allCards: (_root, _args, _context) => {
-      return cards.filter(card => card.sets !== null);
+      // console.log(Cards);
+      return Cards.filter(Card => Card.sets !== null);
     },
     topCardByRevenue: (_root, _args, _context) => {
-      const cardsByValueDesc = cards.sort((cardA, cardB) => (cardA.revenue < cardB.revenue));
+      const cardsByValueDesc = Cards.sort((cardA, cardB) => (cardA.revenue < cardB.revenue));
 
       return cardsByValueDesc[0];
     },
     cardById: (_root, args, _context) => {
-      return cards.find(card => card.id === args.id);
+      return Cards.find(card => card.id === args.id);
     },
     cardsById: (_root, args, _context) => {
       let cardsArray = [];
       args.ids.forEach(argId => {
         cardsArray.push(
-          cards.find(card => {
+          Cards.find(card => {
             return card.id === argId;
           }));
       });
       return cardsArray;
     },
     cardsBySet: (_root, args, _context) => {
-      return cards.filter(
+      return Cards.filter(
         (card) => {
           return card.sets.find(set => args.id == set);
         }
       );
     },
     cardsByType: (_root, args, _context) => {
-      return cards.filter(
+      return Cards.filter(
         (card) => {
           // console.log(card);
           return card.cardTypes.find(cardtype => args.id == cardtype);
@@ -69,7 +70,7 @@ const resolvers = {
   // },
   CardType: {
     cards: (root, _args, _context) => {
-      return cards.filter(
+      return Cards.filter(
         (card) => {
           return card.cardTypes.find(cardType => root.id == cardType);
         }
@@ -78,7 +79,7 @@ const resolvers = {
   },
   Set: {
     cards: (root, _args, _context) => {
-      return cards.filter(
+      return Cards.filter(
         (card) => {
           return card.sets.find(set => root.id === set);
         }
