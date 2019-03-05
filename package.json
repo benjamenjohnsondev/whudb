@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --config webpack-conf/webpack.prod.js && npm run generatesw && node dist/backend/server.js",
     "start-dev": "concurrently \"webpack --watch --config webpack-conf/webpack.dev.js\" \"node dist/backend/server.js\"",
-    "broken": "concurrently \"node dist/backend/server.js\" \"webpack-dev-server --watch --config webpack-conf/webpack.dev.js\" "
+    "clear:babel-cache": "rm -rf ./node_modules/.cache/babel-loader/*",
+    "debug": "concurrently \"webpack --watch --config webpack-conf/webpack.dev.js\" \"node dist/backend/server.js\"",
+    "broken": "concurrently \"npm run clear:babel-cache && nodemon --exec babel-node backend/src/server.js\" \"webpack-dev-server --watch --config webpack-conf/webpack.dev.js\" "
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.3",
     "@babel/plugin-transform-react-inline-elements": "^7.2.0",
     "@babel/plugin-transform-react-jsx": "^7.3.0",
@@ -37,8 +40,11 @@
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
+    "babel-plugin-graphql-import": "^2.0.0",
+    "babel-plugin-inline-import": "^3.0.0",
     "copy-webpack-plugin": "^4.6.0",
     "graphql-tools": "^4.0.4",
+    "nodemon": "^1.18.10",
     "react-router": "^4.3.1",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
