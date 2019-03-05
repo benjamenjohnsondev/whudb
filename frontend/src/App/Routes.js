@@ -10,7 +10,7 @@ class Routes extends Component {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/page" component={Page} />
-        <Route component={FourOhFour}></Route>
+        <Route component={FourOhFour}/>
       </Switch>
     );
   }

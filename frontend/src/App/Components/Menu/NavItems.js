@@ -49,6 +49,11 @@ class NavItems extends Component {
               <ListItemText>Api</ListItemText>
             </a>
           </ListItem>
+          <ListItem selected={this.state.selectedIndex === '/api'}>
+            <a onClick={this.props.closeMenu('left', false)} href="/404">
+              <ListItemText>404</ListItemText>
+            </a>
+          </ListItem>
         </List>
       </div>
     );
