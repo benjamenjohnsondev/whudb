@@ -8,8 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --config webpack-conf/webpack.prod.js && npm run generatesw && node dist/backend/server.js",
     "start-dev": "concurrently \"webpack --watch --config webpack-conf/webpack.dev.js\" \"node dist/backend/server.js\"",
+    "clear:babel-cache": "rm -rf ./node_modules/.cache/babel-loader/*",
     "debug": "concurrently \"webpack --watch --config webpack-conf/webpack.dev.js\" \"node dist/backend/server.js\"",
-    "broken": "concurrently \"nodemon --exec babel-node backend/src/server.js\" \"webpack-dev-server --watch --config webpack-conf/webpack.dev.js\" "
+    "broken": "concurrently \"npm run clear:babel-cache && nodemon --exec babel-node backend/src/server.js\" \"webpack-dev-server --watch --config webpack-conf/webpack.dev.js\" "
   },
   "author": "",
   "license": "ISC",
