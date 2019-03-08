@@ -10,6 +10,10 @@ const theme = createMuiTheme({
   },
   typography: {
     useNextVariants: true,
+    fontSize: 16,
+    h1: {
+      fontSize: "3rem"
+    }
   },
 });
 

@@ -2,7 +2,7 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 const production = {
-  mode: 'production'
+  mode: 'production',
 };
 
 const prodModern = merge(common.frontendModern, production);

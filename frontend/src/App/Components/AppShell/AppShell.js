@@ -16,6 +16,9 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  drawer: {
+    width: 250
+  }
 };
 
 class AppShell extends Component {
@@ -43,7 +46,7 @@ class AppShell extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              News
+              Menu
             </Typography>
           </Toolbar>
         </AppBar>

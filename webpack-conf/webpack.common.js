@@ -6,7 +6,11 @@ const frontendEntry = {
   app: path.resolve('./frontend/src/index.js'),
 };
 
-const babelPlugins = ['@babel/plugin-transform-react-jsx', '@babel/plugin-transform-react-inline-elements', "@babel/plugin-proposal-class-properties"];
+const babelPlugins = [
+  '@babel/plugin-transform-react-jsx',
+  '@babel/plugin-transform-react-inline-elements',
+  "@babel/plugin-proposal-class-properties"
+];
 
 const babel = {
   test: /\.js$/,
@@ -48,7 +52,8 @@ const frontendLegacy = {
   entry: frontendEntry,
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(dist)
+    path: path.resolve(dist),
+    publicPath: '/dist/'
   },
   module: {
     rules: [
@@ -61,7 +66,8 @@ const frontendModern = {
   entry: frontendEntry,
   output: {
     filename: '[name].mjs',
-    path: path.resolve(dist)
+    path: path.resolve(dist),
+    publicPath: '/dist/'
   },
   module: {
     rules: [
