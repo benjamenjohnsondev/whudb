@@ -12,6 +12,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
   }
 });
+
 class Home extends Component {
   render() {
     const { classes } = this.props;

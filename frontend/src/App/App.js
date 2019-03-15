@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Routes from './Routes';
+import Router from './Router';
 import Appshell from "./Components/AppShell/AppShell";
 class App extends Component {
 
@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div>
         <Appshell/>
-        <Routes/>
+        <Router/>
       </div>
     );
   }

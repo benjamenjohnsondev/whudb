@@ -17,6 +17,14 @@ const app = express();
 //   passphrase: 'test'
 // };
 
+
+
+/**
+ * Basically following this: https://alligator.io/react/react-router-ssr/
+ * @param {*} req 
+ * @param {*} res 
+ */
+
 function renderApp(req, res) {
   const context = {};
   const app = handleRender(req, context);

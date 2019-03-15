@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles, Typography, List, ListItem, ListItemIcon, ListItemText, } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
 import CloseIcon from '@material-ui/icons/Close';
 import { withRouter } from 'react-router-dom';
+import Routes from '../../Routes/Routes';
 
 const styles = theme => ({
   root: {
@@ -36,6 +36,30 @@ class NavItems extends Component {
   };
   render() {
     const { classes } = this.props;
+    const routeComponents = Routes.map(
+      ({
+        path,
+        display,
+        id,
+        name,
+        Icon
+      }) => {
+        if (display) {
+          let output =
+            <NavLink onClick={this.props.closeMenu('left', false)} to={path} key={id}>
+              <ListItem selected={this.state.selectedIndex === path}>
+                {Icon ? (
+                  <ListItemIcon className={classes.icon}>
+                    <Icon/>
+                  </ListItemIcon>
+                ) : ''}
+                <ListItemText>{name}</ListItemText>
+              </ListItem>
+            </NavLink>;
+          return output;
+        }
+      }
+    );
     return (
       <div className={classes.root}>
         <List component="nav">
@@ -43,19 +67,7 @@ class NavItems extends Component {
             <Typography variant="h6">Menu</Typography>
             <CloseIcon onClick={this.props.closeMenu('left', false)} className={classes.closeIcon}/>
           </ListItem>
-          <NavLink onClick={this.props.closeMenu('left', false)} to="/">
-            <ListItem selected={this.state.selectedIndex === '/'}>
-              <ListItemIcon className={classes.icon}>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText>Home</ListItemText>
-            </ListItem>
-          </NavLink>
-          <NavLink onClick={this.props.closeMenu('left', false)} to="/page">
-            <ListItem selected={this.state.selectedIndex === '/page'}>
-              <ListItemText>Page</ListItemText>
-            </ListItem>
-          </NavLink>
+          {routeComponents}
           <a onClick={this.props.closeMenu('left', false)} href="/api">
             <ListItem selected={this.state.selectedIndex === '/api'}>
               <ListItemText>Api</ListItemText>

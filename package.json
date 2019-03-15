@@ -10,7 +10,7 @@
     "start-dev": "concurrently \"webpack --watch --config webpack-conf/webpack.dev.js\" \"node dist/backend/server.js\"",
     "clear:babel-cache": "rm -rf ./node_modules/.cache/babel-loader/*",
     "debug": "concurrently \"webpack --watch backend/ frontend/ --config webpack-conf/webpack.dev.js\" \"node dist/backend/server.js\"",
-    "broken": "concurrently \"nodemon --watch backend/ --exec babel-node backend/src/server.js\" \"npm run generatesw && webpack --watch --hot --config webpack-conf/webpack.dev.js\" "
+    "broken": "concurrently \"nodemon --watch backend/ --exec babel-node backend/src/server.js\" \"npm run generatesw && webpack --watch --config webpack-conf/webpack.dev.js\""
   },
   "author": "",
   "license": "ISC",
