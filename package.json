@@ -11,7 +11,7 @@
     "clear:babel-cache": "rm -rf ./node_modules/.cache/babel-loader/*",
     "debug": "concurrently \"webpack --watch backend/ frontend/ --config config/webpack.dev.js\" \"node dist/backend/server.js\"",
     "broken": "concurrently \"nodemon --watch backend/ --exec babel-node src/backend/server.js\" \"npm run generatesw && webpack --watch --config config/webpack.dev.js\"",
-    "new": "webpack-dev-server --color --config config/webpack.new.config.js",
+    "new": "webpack-dev-server --hot --color --config config/webpack.new.config.js",
     "server": "nodemon --watch backend/ --exec babel-node src/backend/server.js"
   },
   "author": "",
