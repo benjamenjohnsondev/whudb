@@ -79,7 +79,7 @@ const frontendModern = {
 const backendConfig = {
   target: 'node',
   entry: {
-    server: path.resolve('backend/src/server.js')
+    server: path.resolve('src/backend/server.js')
   },
   output: {
     filename: '[name].js',

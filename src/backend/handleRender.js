@@ -1,4 +1,4 @@
-import App from '../../frontend/src/App/App';
+import App from '../frontend/App/App';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import React from 'react';
@@ -12,7 +12,7 @@ import {
 import {
   SheetsRegistry
 } from 'jss';
-import theme from '../../frontend/src/Theme/theme';
+import theme from '../frontend/Theme/theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 function handleRender(req, context) {
