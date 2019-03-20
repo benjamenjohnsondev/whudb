@@ -11,8 +11,8 @@
     "clear:babel-cache": "rm -rf ./node_modules/.cache/babel-loader/*",
     "debug": "concurrently \"webpack --watch backend/ frontend/ --config config/webpack.dev.js\" \"node dist/backend/server.js\"",
     "broken": "concurrently \"nodemon --watch backend/ --exec babel-node src/backend/server.js\" \"npm run generatesw && webpack --watch --config config/webpack.dev.js\"",
-    "new": "webpack-dev-server --hot --color --config config/webpack.new.config.js",
-    "server": "nodemon --watch backend/ --exec babel-node src/backend/server.js"
+    "new": "webpack-dev-server --open --hot --color --config config/webpack.new.config.js",
+    "server": "concurrently \"nodemon --watch backend/ --exec babel-node src/backend/server.js\" \"webpack-dev-server --open --hot --color --config config/webpack.new.config.js\""
   },
   "author": "",
   "license": "ISC",
@@ -45,6 +45,9 @@
     "babel-plugin-graphql-import": "^2.0.0",
     "babel-plugin-inline-import": "^3.0.0",
     "copy-webpack-plugin": "^4.6.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
     "graphql-tools": "^4.0.4",
     "html-webpack-plugin": "^3.2.0",
     "nodemon": "^1.18.10",

@@ -18,7 +18,7 @@ class Sets extends Component {
     return (
       <div>
         <Paper className={classes.paper}>
-          <Typography variant="h2">Sets</Typography>
+          <Typography variant="h1">Sets</Typography>
         </Paper>
       </div>
     );
