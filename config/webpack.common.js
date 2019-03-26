@@ -2,9 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const dist = path.resolve('./dist/frontend');
-const frontendEntry = {
-  app: path.resolve('./frontend/src/index.js'),
-};
+const frontendEntry = path.resolve('./src/frontend/index.js');
 
 const babelPlugins = [
   '@babel/plugin-transform-react-jsx',
@@ -49,7 +47,7 @@ const babelModule = {
 };
 
 const frontendLegacy = {
-  entry: frontendEntry,
+  entry: path.resolve(frontendEntry),
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(dist),
@@ -63,7 +61,7 @@ const frontendLegacy = {
 };
 
 const frontendModern = {
-  entry: frontendEntry,
+  entry: path.resolve(frontendEntry),
   output: {
     filename: '[name].mjs',
     path: path.resolve(dist),
