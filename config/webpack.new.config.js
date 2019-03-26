@@ -26,29 +26,30 @@ const babel = {
 };
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: {
     app: path.resolve('src/frontend/index.js'),
   },
   output: {
-      path: path.join(__dirname, 'output'),
-      filename: 'app.js'
+    path: path.join(__dirname, 'output'),
+    filename: 'app.js',
   },
   devServer: {
     contentBase: path.resolve('output/'),
     compress: true,
     port: 8080,
     disableHostCheck: true,
+    historyApiFallback: true,
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/api': 'http://localhost:3000',
     },
   },
   module: {
-    rules: [
-      babel
-    ]
+    rules: [babel],
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: 'public/index.html'
-  })]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+    }),
+  ],
 };

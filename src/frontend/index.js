@@ -4,10 +4,7 @@ import App from './App/App';
 import { BrowserRouter } from 'react-router-dom';
 // MATERIAL UI
 import JssProvider from 'react-jss/lib/JssProvider';
-import {
-  MuiThemeProvider,
-  createGenerateClassName,
-} from '@material-ui/core/styles';
+import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 import theme from './Theme/theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -36,5 +33,5 @@ ReactDOM.hydrate(
       </MuiThemeProvider>
     </JssProvider>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
