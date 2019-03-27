@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "generatesw": "workbox generateSW sw.config",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --config config/webpack.prod.js && npm run generatesw && node dist/backend/server.js",
-    "new": "webpack-dev-server --open --hot --color --config config/webpack.new.config.js",
-    "server": "concurrently \"nodemon --watch backend/ --exec babel-node src/backend/server.js\" \"webpack-dev-server --open --hot --color --config config/webpack.new.config.js\""
+    "build": "webpack --config config/webpack.prod.js && npm run generatesw",
+    "start": "node dist/backend/server.js",
+    "dev": "concurrently \"nodemon --watch backend/ --exec babel-node src/backend/server.js\" \"webpack-dev-server --open --hot --color --config config/webpack.new.config.js\""
   },
   "author": "",
   "license": "ISC",

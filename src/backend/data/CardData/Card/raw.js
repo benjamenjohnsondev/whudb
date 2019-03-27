@@ -5,7 +5,7 @@ promise.polyfill();
 
 const tempUrl = 'https://warhammerunderworlds.com/wp-json/wp/v2/cards/?';
 const params = [
-  'per_page=5',
+  'per_page=1000',
   'orderby=id'
 ];
 function buildUrl(tempUrl, params) {

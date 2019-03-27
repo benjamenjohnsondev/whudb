@@ -1,10 +1,12 @@
+import fetch from 'isomorphic-fetch';
+
 const dbName = 'whudb';
 
 export function loadData(param) {
-  const dataURL = '/api',
+  const dataURL = `/api`,
     query = `?query={${param}}`;
 
-  fetch(dataURL + query)
+  return fetch(dataURL + query)
     .then(res => {
       if (res.ok) {
         return res.json();
@@ -12,36 +14,51 @@ export function loadData(param) {
       throw new Error('Something went wrong!');
     })
     .then(res => {
-      this.setState({
-        data: res.data.allSets,
-      });
-    })
-    .then(res => {
-      console.log(this.state.data);
+      return res.data;
     })
     .catch(Error);
 }
 
+function createOwnership(db) {
+  const setsOwned = db.createObjectStore('setsOwned', {
+    keyPath: 'id',
+    autoIncrement: true,
+  });
+  setsOwned.createIndex('id', 'id', { unique: true });
+}
+
+function createSets(db) {
+  const sets = db.createObjectStore('sets', {
+    // keyPath: 'id',
+    autoIncrement: false,
+  });
+  sets.createIndex('id', 'id', { unique: true });
+  loadData('allSets{id,name,image{width,height,url}}').then(data => {
+    data.allSets.forEach(set => {
+      addToDb(set, parseInt(set.id), 'sets');
+    });
+  });
+}
+
 export const __dbInit = () => {
-  const connect = indexedDB.open(dbName);
+  indexedDB.deleteDatabase(dbName, 1);
+  const connect = indexedDB.open(dbName, 1);
   connect.onupgradeneeded = evt => {
     const db = evt.target.result;
-    const firstOS = db.createObjectStore('firstOS', {
-      keyPath: 'id',
-      autoIncrement: true,
-    });
-    firstOS.createIndex('id', 'id', { unique: true });
+    createSets(db);
+    createOwnership(db);
   };
 };
 
-export function addToDb (data) {
+export function addToDb (data, id, dataStore) {
   const connect = indexedDB.open(dbName);
   connect.onsuccess = evt => {
+    const key = id;
     const db = connect.result;
-    let tx = db.transaction('firstOS', 'readwrite');
-    let store = tx.objectStore('firstOS');
-    let item = {value:data};
-    store.add(item);
+    let tx = db.transaction(dataStore, 'readwrite');
+    let store = tx.objectStore(dataStore);
+    let item = { value: data };
+    store.add(item, key);
     return tx.complete;
   };
 };

@@ -29,6 +29,7 @@ const resolvers = {
     cardsBySet: (_root, args, _context) => {
       return Cards.filter(
         (card) => {
+          // console.log(card);
           return card.sets.find(set => args.id == set);
         }
       );

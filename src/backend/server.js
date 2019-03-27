@@ -2,11 +2,11 @@ import express from 'express';
 // import https from 'https';
 import graphqlHTTP from 'express-graphql';
 import Schema from './data/Schema';
-import fs from 'fs';
+import fs, { copyFileSync } from 'fs';
 import path from 'path';
 import { handleRender } from './handleRender';
 import Routes from '../frontend/App/Routes/Routes';
-import { matchPath } from 'react-router';
+import { matchPath } from 'react-router-dom';
 
 const PORT = 3000;
 const app = express();
@@ -26,8 +26,10 @@ const app = express();
  */
 
 function renderApp(req, res) {
-  const currentRoute = Routes.find(route => matchPath(req.url, route)) || {};
+  const currentRoute = Routes.find(route => req.url == route.path);
   let promise;
+
+  // console.log(req.url, req.path, currentRoute);
 
   if (currentRoute.loadData) {
     promise = currentRoute.loadData();
@@ -38,15 +40,14 @@ function renderApp(req, res) {
   promise.then(data => {
     // Let's add the data to the context
     const context = { data };
+    console.error(context);
     const app = handleRender(req, context);
-    const indexFile = path.resolve('public/index.html');
+    const indexFile = path.resolve('dist/frontend/index.html');
     fs.readFile(indexFile, 'utf8', (err, data) => {
       if (err) {
         console.error('Something went wrong:', err);
         return res.status(500).send('Oops, better luck next time!');
       }
-
-      // console.log(app.css);
 
       return res.send(
         data
@@ -55,7 +56,10 @@ function renderApp(req, res) {
             `<style id="jss-server-side"></style>`,
             `<style id="jss-server-side">${app.css}</style>`,
           )
-          .replace('</body>', `<script>window.__ROUTE_DATA__ = ${data}</script></body>`),
+          .replace(
+            '</body>',
+            `<script>window.__ROUTE_DATA__ = ${JSON.stringify(context)};</script></body>`,
+          ),
       );
     });
   });
@@ -83,7 +87,9 @@ app.listen(
   {
     port: PORT,
   },
-  () => console.log('\x1b[1m', `GraphQL running at: "http://localhost:${PORT}/api"` + '\x1b[0m'),
+  () => {
+    console.log('\x1b[1m', `GraphQL running at: "http://localhost:${PORT}/api"` + '\x1b[0m')
+  },
 );
 
 // const httpsServer = https.createServer(credentials, app);

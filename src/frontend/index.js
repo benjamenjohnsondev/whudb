@@ -7,6 +7,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 import theme from './Theme/theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { __dbInit } from '../data/Helpers';
 
 const generateClassName = createGenerateClassName();
 
@@ -17,6 +18,7 @@ class Main extends React.Component {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+    __dbInit();
   }
 
   render() {

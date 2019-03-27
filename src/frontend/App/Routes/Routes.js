@@ -2,7 +2,7 @@ import Sets from './Sets';
 import FourOhFour from './FourOhFour';
 import Home from './Home';
 import HomeIcon from '@material-ui/icons/Home';
-import {loadData} from '../../../data/Helpers';
+import { loadData } from '../../../data/Helpers';
 
 const Routes = [
   {
@@ -41,6 +41,5 @@ const Routes = [
     loadData: null,
   },
 ];
-
 
 export default Routes;

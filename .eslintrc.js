@@ -6,8 +6,7 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: ['airbnb'],
-  plugins: ['babel', 'import', 'jsx-a11y', 'react', 'prettier'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'react'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
@@ -51,6 +50,6 @@ module.exports = {
       },
     ], // for nested label htmlFor error
 
-    'prettier/prettier': ['error'],
+    // 'prettier/prettier': ['error'],
   },
 };

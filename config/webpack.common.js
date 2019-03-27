@@ -1,13 +1,18 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const dist = path.resolve('./dist/frontend');
-const frontendEntry = path.resolve('./src/frontend/index.js');
+const frontendDist = path.resolve('./dist/frontend');
+const frontendEntries = {
+  main: path.resolve('./src/frontend/index.js'),
+  home: path.resolve('./src/frontend/App/Routes/Home.js'),
+  sets: path.resolve('./src/frontend/App/Routes/Sets.js'),
+  fourohfour: path.resolve('./src/frontend/App/Routes/FourOhFour.js'),
+};
 
 const babelPlugins = [
   '@babel/plugin-transform-react-jsx',
   '@babel/plugin-transform-react-inline-elements',
-  "@babel/plugin-proposal-class-properties"
+  '@babel/plugin-proposal-class-properties',
 ];
 
 const babel = {
@@ -16,16 +21,19 @@ const babel = {
   loader: 'babel-loader',
   options: {
     presets: [
-      ['@babel/preset-env', {
-        useBuiltIns: 'usage',
-        targets: {
-          esmodules: false
-        }
-      }],
-      '@babel/preset-react'
+      [
+        '@babel/preset-env',
+        {
+          useBuiltIns: 'usage',
+          targets: {
+            esmodules: false,
+          },
+        },
+      ],
+      '@babel/preset-react',
     ],
-    plugins: [...babelPlugins]
-  }
+    plugins: [...babelPlugins],
+  },
 };
 
 const babelModule = {
@@ -34,54 +42,52 @@ const babelModule = {
   loader: 'babel-loader',
   options: {
     presets: [
-      ['@babel/preset-env', {
-        useBuiltIns: 'usage',
-        targets: {
-          esmodules: true
-        }
-      }],
-      '@babel/preset-react'
+      [
+        '@babel/preset-env',
+        {
+          modules: false,
+          useBuiltIns: 'usage',
+          targets: {
+            esmodules: true,
+          },
+        },
+      ],
+      '@babel/preset-react',
     ],
-    plugins: [...babelPlugins]
-  }
+    plugins: [...babelPlugins],
+  },
 };
 
 const frontendLegacy = {
-  entry: path.resolve(frontendEntry),
+  entry: frontendEntries,
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(dist),
-    publicPath: '/dist/'
+    path: path.resolve(frontendDist),
   },
   module: {
-    rules: [
-      babel
-    ]
+    rules: [babel],
   },
 };
 
 const frontendModern = {
-  entry: path.resolve(frontendEntry),
+  entry: frontendEntries,
   output: {
     filename: '[name].mjs',
-    path: path.resolve(dist),
-    publicPath: '/dist/'
+    path: path.resolve(frontendDist),
   },
   module: {
-    rules: [
-      babelModule
-    ]
+    rules: [babelModule],
   },
 };
 
 const backendConfig = {
   target: 'node',
   entry: {
-    server: path.resolve('src/backend/server.js')
+    server: path.resolve('src/backend/server.js'),
   },
   output: {
     filename: '[name].js',
-    path: path.resolve('dist/backend/')
+    path: path.resolve('dist/backend/'),
   },
   module: {
     rules: [
@@ -89,22 +95,22 @@ const backendConfig = {
       {
         test: /\.graphql?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'webpack-graphql-loader'
-      }
-    ]
+        loader: 'webpack-graphql-loader',
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: path.resolve('public'),
-        to: dist
-      }
-    ])
-  ]
+        from: path.resolve('public/assets'),
+        to: path.resolve(frontendDist, 'assets'),
+      },
+    ]),
+  ],
 };
 
 module.exports = {
   backend: backendConfig,
   frontendLegacy: frontendLegacy,
-  frontendModern: frontendModern
+  frontendModern: frontendModern,
 };

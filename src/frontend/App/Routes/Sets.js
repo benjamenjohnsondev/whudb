@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import {
-  Grid,
-  Card,
-  CardHeader,
-  IconButton,
-  Avatar,
-} from '@material-ui/core';
+import { Grid, Card, CardHeader, IconButton, Avatar } from '@material-ui/core';
 import { LibraryAdd as LibraryAddIcon } from '@material-ui/icons';
-import { addToDb, __dbInit } from '../../../data/Helpers';
+import { addToDb, __dbInit, loadData } from '../../../data/Helpers';
 
 const styles = theme => ({
   paper: {
@@ -27,9 +21,9 @@ const styles = theme => ({
     marginBottom: '.5em',
   },
   wrapper: {
-    maxWidth: "100%",
-    margin: 16
-  }
+    maxWidth: '100%',
+    margin: 16,
+  },
 });
 
 class Sets extends Component {
@@ -61,27 +55,18 @@ class Sets extends Component {
     };
   }
   componentDidMount() {
-    const dataURL = '/api',
-      param = '?query={allSets{id,name,image{width,height,url}}}';
-
-    fetch(dataURL + param)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error('Something went wrong!');
-      })
-      .then(res => {
+    if (window.__ROUTE_DATA__ && window.__ROUTE_DATA__.data) {
+      this.setState({
+        data: window.__ROUTE_DATA__.data,
+      });
+      delete window.__ROUTE_DATA__;
+    } else {
+      loadData('allSets{id,name,image{width,height,url}}').then(data => {
         this.setState({
-          data: res.data.allSets,
+          data: data.allSets,
         });
-        __dbInit();
-        addToDb(data);
-      })
-      .then(res => {
-        console.table(this.state.data);
-      })
-      .catch(Error);
+      });
+    }
   }
   render() {
     const { classes } = this.props;
