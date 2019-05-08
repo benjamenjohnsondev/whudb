@@ -4,7 +4,7 @@ const path = require('path');
 
 const development = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     contentBase: path.resolve('public'),

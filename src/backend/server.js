@@ -31,11 +31,11 @@ function renderApp(req, res) {
 
   // console.log(req.url, req.path, currentRoute);
 
-  if (currentRoute.loadData) {
-    promise = currentRoute.loadData();
-  } else {
-    promise = Promise.resolve(null);
-  }
+  // if (currentRoute.loadData !== null) {
+  //   promise = currentRoute.loadData();
+  // } else {
+  //   promise = Promise.resolve(null);
+  // }
 
   promise.then(data => {
     // Let's add the data to the context

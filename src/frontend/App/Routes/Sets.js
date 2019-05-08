@@ -5,17 +5,13 @@ import Paper from '@material-ui/core/Paper';
 import { Grid, Card, CardHeader, IconButton, Avatar } from '@material-ui/core';
 import { LibraryAdd as LibraryAddIcon } from '@material-ui/icons';
 import { addToDb, __dbInit, loadData } from '../../../data/Helpers';
+import PaperCard from '../Components/Sets/PaperCard';
+import { AddRounded as AddIcon } from '@material-ui/icons';
 
 const styles = theme => ({
   paper: {
     margin: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
-  },
-  cardImage: {
-    maxWidth: '100%',
-  },
-  cards: {
-    margin: theme.spacing.unit * 2,
   },
   header: {
     marginBottom: '.5em',
@@ -35,22 +31,7 @@ class Sets extends Component {
     this.classes = this.props;
     this.renderData = ({ id, name, image }) => {
       return (
-        <Grid item className={this.classes.paper} key={id} xs={12} sm={6} md={4}>
-          <Card>
-            <CardHeader
-              avatar={<Avatar src={image.url} aria-label={name} />}
-              action={
-                <IconButton className={this.classes.icon}>
-                  <LibraryAddIcon />
-                </IconButton>
-              }
-              title={name}
-            />
-            {/* <CardContent>
-              <Typography>{name}</Typography>
-            </CardContent> */}
-          </Card>
-        </Grid>
+        <PaperCard key={id} id={id} name={name} image={image}/>
       );
     };
   }
@@ -76,7 +57,7 @@ class Sets extends Component {
           <Typography className={classes.header} variant="h1">
             Sets
           </Typography>
-          <Typography variant="body1">Click the library icon to add your sets</Typography>
+          <Typography variant="body1">Click the <AddIcon/> icon to add your sets</Typography>
         </Paper>
         <div className={classes.wrapper}>
           <Grid container spacing={24}>
