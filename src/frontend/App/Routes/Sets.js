@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { Grid, Card, CardHeader, IconButton, Avatar } from '@material-ui/core';
 import { LibraryAdd as LibraryAddIcon } from '@material-ui/icons';
-import { addToDb, __dbInit, loadData } from '../../../data/Helpers';
+import { loadData } from '../../../data/Helpers';
 import PaperCard from '../Components/Sets/PaperCard';
 import { AddRounded as AddIcon } from '@material-ui/icons';
 

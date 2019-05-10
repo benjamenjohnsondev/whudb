@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Card, CardActionArea, CardHeader, IconButton, Avatar } from '@material-ui/core';
+import { Grid, Card, CardActionArea, CardHeader, IconButton, Avatar, Modal } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import { Remove as RemoveIcon } from '@material-ui/icons';
-
+import { deleteData, setData, getData, checkData, loadData } from '../../../../data/Helpers';
+import CardModal from './CardModal';
 
 const styles = theme => ({
   paper: {
@@ -17,43 +18,48 @@ const styles = theme => ({
     margin: theme.spacing.unit * 2,
   },
   icon: {
-    alignSelf: 'center'
-  }
+    alignSelf: 'center',
+  },
 });
 
 class PaperCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
       isToggleOn: true,
+      modalOpen: false,
     };
     this.classes = this.props;
   }
+  handleOpen = () => {
+    this.setState({ modalOpen: true });
+  };
+  handleClose = () => {
+    this.setState({ modalOpen: false });
+  };
+  loadCards(setId) {
+    const query = `cardsBySet(id:${setId}){id,name,image{height,url,width}}`;
+    loadData(query).then(data => {
+      console.log(data);
+      this.setState({
+        data: data,
+      });
+    });
+  }
   toggleSet() {
-    var existing = localStorage.getItem('sets');
-    existing = existing ? existing.split(',') : [];
-
     this.setState(state => ({
-      isToggleOn: !state.isToggleOn
+      isToggleOn: !state.isToggleOn,
     }));
 
-    if (existing.includes(this.props.id)) {
-      let i = existing.indexOf(this.props.id);
-      existing.splice(i, 1);
-    } else {
-      existing.push(this.props.id)
-    };
-    localStorage.setItem('sets', existing.toString());
-  }
-  debug(val) {
+    if (this.state.isToggleOn) {
+      return setData('sets', this.props.id, 'toggle');
+    }
 
+    return deleteData('sets', this.props.id, 'toggle');
   }
-  componentDidMount() {
-    var sets = localStorage.getItem('sets');
-    sets = sets ? sets.split(',') : [];
-
-    if (sets.includes(this.props.id)) {
+  componentWillMount() {
+    const localData = getData('sets', this.props.id);
+    if (localData && localData.includes(this.props.id)) {
       this.setState(() => ({
         isToggleOn: false,
       }));
@@ -64,16 +70,15 @@ class PaperCard extends Component {
     return (
       <Grid item key={this.props.id} xs={12} sm={6} md={4}>
         <Card>
+          <CardModal modalOpen={this.state.modalOpen} onClose={this.handleClose} data={this.state.data}/>
           <CardHeader
             classes={{
-              action: classes.icon
+              action: classes.icon,
             }}
             avatar={
-              <IconButton onClick={this.debug(classes)}>
-                <Avatar
-                  src={this.props.image.url}
-                  aria-label={this.props.name}
-                />
+              <IconButton onClick={() => this.loadCards(this.props.id)}>
+              {/* <IconButton onClick={() => this.handleOpen}> */}
+                <Avatar src={this.props.image.url} aria-label={this.props.name} />
               </IconButton>
             }
             action={
